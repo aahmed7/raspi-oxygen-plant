@@ -39,7 +39,17 @@ class Sensors:
     def __init__(self):
         pass
 
-    def read_sensor(self, sensor_name):
+    def read_sensor(self, sensor_name="press1"):
         if sensor_name == "press1":
             return press1.value
+        if sensor_name == "press2":
+            return press2.value
+        if sensor_name == "press3":
+            return press3.value
+        # if sensor_name == "press4":
+        #     return press4.value
+        # if sensor_name == "press5":
+        #     return press5.value
+        # if sensor_name == "oxy1":
+        #     return oxy1.value
         

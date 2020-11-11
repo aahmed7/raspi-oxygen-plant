@@ -85,3 +85,18 @@ def master_login():
 def user_login():
     pass
 
+# Function prototype
+def log_data():
+    pass
+
+# Function prototype
+def retrive_logs():
+    pass
+
+# Function prototype
+def main_menu():
+    pass
+
+# Function prototype
+def admin_menu():
+    pass
