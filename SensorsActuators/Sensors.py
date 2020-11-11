@@ -27,16 +27,19 @@ PRESSURE4 = ADS.P0
 PRESSURE5 = ADS.P1
 OXYGEN1   = ADS.P2
 
+press1 = AnalogIn(adc1,PRESSURE1)
+press2 = AnalogIn(adc1,PRESSURE2)
+press3 = AnalogIn(adc1,PRESSURE3)
+press4 = AnalogIn(adc2,PRESSURE4)
+press5 = AnalogIn(adc2,PRESSURE5)
+oxy1 = AnalogIn(adc2,OXYGEN1)
+
 class Sensors:
     # Initialize the ADC
     def __init__(self):
-        press1 = AnalogIn(adc1,PRESSURE1)
-        press2 = AnalogIn(adc1,PRESSURE2)
-        press3 = AnalogIn(adc1,PRESSURE3)
-        press4 = AnalogIn(adc2,PRESSURE4)
-        press5 = AnalogIn(adc2,PRESSURE5)
-        oxy1 = AnalogIn(adc2,OXYGEN1)
+        pass
 
-    def readSensor(self, sensor_name):
-        return sensor_name.value
+    def read_sensor(self, sensor_name):
+        if sensor_name == "press1":
+            return press1.value
         
