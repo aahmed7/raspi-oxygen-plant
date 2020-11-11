@@ -1,13 +1,13 @@
 def read_pressure(sensor_index):
     pass
 
-def activate_piston(piston_index):
+def valve_open_controlled(valve_index,duty_cycle):
+    pass
+
+def valve_open_full(valve_index):
     pass
 
 def check_oxygen_purity():
-    pass
-
-def valve_pid_control(valve_index):
     pass
 
 def adjust_pressure(tank_index):
