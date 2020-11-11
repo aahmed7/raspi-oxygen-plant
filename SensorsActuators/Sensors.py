@@ -16,23 +16,23 @@ ADC1 = 0x48
 ADC2 = 0x49
 
 # Create ADC objects
-adc1 = ADS.ADS1115(ADC1,i2c)
-adc2 = ADS.ADS1115(ADC2,i2c)
+adc1 = ADS.ADS1115(i2c,address=ADC1)
+# adc2 = ADS.ADS1115(i2c,address=ADC2)
 
 # Define index for sensors
 PRESSURE1 = ADS.P0
 PRESSURE2 = ADS.P1
 PRESSURE3 = ADS.P2
-PRESSURE4 = ADS.P0
-PRESSURE5 = ADS.P1
-OXYGEN1   = ADS.P2
+# PRESSURE4 = ADS.P0
+# PRESSURE5 = ADS.P1
+# OXYGEN1   = ADS.P2
 
 press1 = AnalogIn(adc1,PRESSURE1)
 press2 = AnalogIn(adc1,PRESSURE2)
 press3 = AnalogIn(adc1,PRESSURE3)
-press4 = AnalogIn(adc2,PRESSURE4)
-press5 = AnalogIn(adc2,PRESSURE5)
-oxy1 = AnalogIn(adc2,OXYGEN1)
+# press4 = AnalogIn(adc2,PRESSURE4)
+# press5 = AnalogIn(adc2,PRESSURE5)
+# oxy1 = AnalogIn(adc2,OXYGEN1)
 
 class Sensors:
     # Initialize the ADC
