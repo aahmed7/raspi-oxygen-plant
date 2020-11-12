@@ -1,27 +1,44 @@
 from passlib.hash import pbkdf2_sha256
+import stdiomask
 
 class Login:
+    def set_passwd_hash(self,new_hash):
+        with open ("userpasswd", "w") as myfile:
+            return myfile.write(new_hash)
+
+    def set_adm_passwd_hash(self,new_hash):
+        with open ("adminpasswd", "w") as myfile:
+            return myfile.write(new_hash)
+
     def get_passwd_hash(self):
         try:
             with open ("userpasswd", "r") as myfile:
                 return myfile.read()
         except:
-            # Generate default password "password"
+            # Generate default password "passwd"
             hash = '$pbkdf2-sha256$29000$dc45J4SQ0lrr/b/XGmNMaQ$VDmYehyEzfaDpx0iN4uQShQqgTl.dd/oCiFqR3hpUUE'
             self.set_passwd_hash(hash)
             return hash
 
-    def set_passwd_hash(new_hash):
-        with open ("userpasswd", "w") as myfile:
-            return myfile.write(new_hash)
+    def get_adm_passwd_hash(self):
+        try:
+            with open ("adminpasswd", "r") as myfile:
+                return myfile.read()
+        except:
+            # Generate default password "passwd"
+            hash = '$pbkdf2-sha256$29000$dc45J4SQ0lrr/b/XGmNMaQ$VDmYehyEzfaDpx0iN4uQShQqgTl.dd/oCiFqR3hpUUE'
+            self.set_passwd_hash(hash)
+            return hash
 
     def update_passwd(self):
         new_passwd = input("Enter new password: ")
         hash = pbkdf2_sha256.hash(new_passwd)
         self.set_passwd_hash(hash)
 
-    def check_login_user(self,username,password):
+    def check_login_user(self):
         passwd_hash = self.get_passwd_hash()
+        username = input("Username: ")
+        password = stdiomask.getpass(prompt="Password: ")
         try:
             assert username == "user"
             try:

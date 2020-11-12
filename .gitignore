@@ -1,2 +1,5 @@
 venv*
 .vscode
+userpasswd
+adminpasswd
+__pycache__
