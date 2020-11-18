@@ -17,39 +17,38 @@ ADC2 = 0x49
 
 # Create ADC objects
 adc1 = ADS.ADS1115(i2c,address=ADC1)
-# adc2 = ADS.ADS1115(i2c,address=ADC2)
+adc2 = ADS.ADS1115(i2c,address=ADC2)
 
 # Define index for sensors
 PRESSURE1 = ADS.P0
 PRESSURE2 = ADS.P1
 PRESSURE3 = ADS.P2
-# PRESSURE4 = ADS.P0
-# PRESSURE5 = ADS.P1
-# OXYGEN1   = ADS.P2
-
-press1 = AnalogIn(adc1,PRESSURE1)
-press2 = AnalogIn(adc1,PRESSURE2)
-press3 = AnalogIn(adc1,PRESSURE3)
-# press4 = AnalogIn(adc2,PRESSURE4)
-# press5 = AnalogIn(adc2,PRESSURE5)
-# oxy1 = AnalogIn(adc2,OXYGEN1)
+PRESSURE4 = ADS.P0
+PRESSURE5 = ADS.P1
+OXYGEN1   = ADS.P2
 
 class Sensors:
     # Initialize the ADC
     def __init__(self):
-        pass
+        self.press1 = AnalogIn(adc1,PRESSURE1)
+        self.press2 = AnalogIn(adc1,PRESSURE2)
+        self.press3 = AnalogIn(adc1,PRESSURE3)
+        self.press4 = AnalogIn(adc2,PRESSURE4)
+        self.press5 = AnalogIn(adc2,PRESSURE5)
+        self.oxy1 = AnalogIn(adc2,OXYGEN1)
 
     def read_sensor(self, sensor_name="press1"):
         if sensor_name == "press1":
-            return press1.value
+            return self.press1.value
         if sensor_name == "press2":
-            return press2.value
+            return self.press2.value
         if sensor_name == "press3":
-            return press3.value
-        # if sensor_name == "press4":
-        #     return press4.value
-        # if sensor_name == "press5":
-        #     return press5.value
-        # if sensor_name == "oxy1":
-        #     return oxy1.value
+            return self.press3.value
+        if sensor_name == "press4":
+            return self.press4.value
+        if sensor_name == "press5":
+            return self.press5.value
+        if sensor_name == "oxy1":
+            return self.oxy1.value
         
+sensors = Sensors()

@@ -17,9 +17,12 @@
 - Extract to O2 Tank
 
 ## Valves
-- V1 - left in
+- V1 - left in  
 - V2 - right in
 - V3 - balance 1
 - V4 - balance 2
 - V5 - left out
 - V6 - right out
+
+## Valve GPIOs:
+12, 16, 18, 22, 24, 32
