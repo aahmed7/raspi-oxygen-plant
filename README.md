@@ -9,6 +9,8 @@
 - qt5 frontend
 - setup vnc kiosk
 - redundancy
+- sensor < 4mA error check
+- sensor voltage to pressure
 - indenpendancy
 
 ## Done

@@ -36,10 +36,14 @@ class Sensors:
         self.press4 = AnalogIn(adc2,PRESSURE4)
         self.press5 = AnalogIn(adc2,PRESSURE5)
         self.oxy1 = AnalogIn(adc2,OXYGEN1)
+        # Resistor installed on the board for volt -> current conversion
+        self.RES = 200
+        # Scale current to pressure. scaler = 20mA/PRESSURE_SENSOR_MAX
+        self.PRESSURE_SCALER = 1
 
     def read_sensor(self, sensor_name="press1"):
         if sensor_name == "press1":
-            return self.press1.value
+            return (self.press1.value)
         if sensor_name == "press2":
             return self.press2.value
         if sensor_name == "press3":
@@ -50,5 +54,18 @@ class Sensors:
             return self.press5.value
         if sensor_name == "oxy1":
             return self.oxy1.value
+
+    def read_pressure(self, sensor_name="press1"):
+        if sensor_name == "press1":
+            return (self.press1.value/32768.0)*5.0/self.RES*1000*self.PRESSURE_SCALER
+        if sensor_name == "press2":
+            return self.press2.value/32768.0*5.0/self.RES*1000*self.PRESSURE_SCALER
+        if sensor_name == "press3":
+            return self.press3.value/32768.0*5.0/self.RES*1000*self.PRESSURE_SCALER
+        if sensor_name == "press4":
+            return self.press4.value/32768.0*5.0/self.RES*1000*self.PRESSURE_SCALER
+        if sensor_name == "press5":
+            return self.press5.value/32768.0*5.0/self.RES*1000*self.PRESSURE_SCALER
+
         
 sensors = Sensors()
