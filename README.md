@@ -1,16 +1,15 @@
 # Raspberry pi oxygen plant controller
 
 ## To-do(important)
-- alarms
-- tank control algorithms
+- qt5 frontend
+- redundancy
+- sensor voltage to pressure
+- sensor < 4mA error check
 
 ## To-do(secondary)
 - set alarms
-- qt5 frontend
+- alarms
 - setup vnc kiosk
-- redundancy
-- sensor < 4mA error check
-- sensor voltage to pressure
 - indenpendancy
 
 ## Done
@@ -20,3 +19,4 @@
 - set passwords
 - data logging
 - graphing(qt5)
+- tank control algorithms

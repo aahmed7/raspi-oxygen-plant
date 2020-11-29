@@ -1,0 +1,66 @@
+Date : 2020-11-30 17:20:30
+Directory : g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT
+Total : 36 files,  14619 codes, 192 comments, 394 blanks, all 15205 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| Python     |         32 |     14,555 |        192 |        379 |     15,126 |
+| Markdown   |          3 |         60 |          0 |         15 |         75 |
+| Django txt |          1 |          4 |          0 |          0 |          4 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                 | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                    |         36 |     14,619 |        192 |        394 |     15,205 |
+| GUI                                                                  |          7 |      1,956 |         55 |         86 |      2,097 |
+| GUI_pi                                                               |          7 |      1,965 |         55 |         87 |      2,107 |
+| SensorsActuators                                                     |          3 |        194 |         29 |         49 |        272 |
+| Settings                                                             |          5 |        284 |         16 |         71 |        371 |
++----------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                             | language   | code       | comment    | blank      | total      |
++----------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\ALGORITHM.md                  | Markdown   |         17 |          0 |          7 |         24 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\AdminMenu.py                  | Python     |          2 |          1 |          1 |          4 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\GUI\AdvancedSettings.py       | Python     |        667 |          7 |         15 |        689 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\GUI\Login.py                  | Python     |         26 |         12 |         16 |         54 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\GUI\OutputTest.py             | Python     |        206 |          7 |         11 |        224 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\GUI\basicsettings.py          | Python     |        308 |          7 |         12 |        327 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\GUI\calibration.py            | Python     |        461 |          7 |         11 |        479 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\GUI\mainwindow.py             | Python     |        235 |          7 |         12 |        254 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\GUI\startstop.py              | Python     |         53 |          8 |          9 |         70 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\GUI_pi\AdvancedSettings.py    | Python     |        667 |          7 |         15 |        689 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\GUI_pi\Login.py               | Python     |         26 |         12 |         16 |         54 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\GUI_pi\OutputTest.py          | Python     |        215 |          7 |         12 |        234 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\GUI_pi\basicsettings.py       | Python     |        308 |          7 |         12 |        327 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\GUI_pi\calibration.py         | Python     |        461 |          7 |         11 |        479 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\GUI_pi\mainwindow.py          | Python     |        235 |          7 |         12 |        254 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\GUI_pi\startstop.py           | Python     |         53 |          8 |          9 |         70 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\MainMenu.py                   | Python     |         11 |          0 |          2 |         13 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\PARTDESCRIPTIONS.md           | Markdown   |         24 |          0 |          4 |         28 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\README.md                     | Markdown   |         19 |          0 |          4 |         23 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\SensorsActuators\Actuators.py | Python     |         93 |         10 |         20 |        123 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\SensorsActuators\Sensors.py   | Python     |        101 |         19 |         28 |        148 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\SensorsActuators\__init__.py  | Python     |          0 |          0 |          1 |          1 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\Settings\AdminSettings.py     | Python     |          8 |          4 |          4 |         16 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\Settings\Alarms.py            | Python     |         27 |          3 |          8 |         38 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\Settings\DataLogs.py          | Python     |         18 |          2 |          5 |         25 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\Settings\Login.py             | Python     |         87 |          7 |         19 |        113 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\Settings\UserSettings.py      | Python     |        144 |          0 |         35 |        179 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\Tanks.py                      | Python     |        204 |         21 |         38 |        263 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\app.py                        | Python     |          9 |          4 |          4 |         17 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\app_ui.py                     | Python     |         64 |          0 |         14 |         78 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\functions.py                  | Python     |          6 |          3 |          6 |         15 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\requirements.txt              | Django txt |          4 |          0 |          0 |          4 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\tankresources_rc.py           | Python     |      9,820 |          6 |         11 |      9,837 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\test1.py                      | Python     |          6 |          1 |          1 |          8 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\test2.py                      | Python     |         22 |          1 |          7 |         30 |
+| g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\test3.py                      | Python     |         12 |          0 |          2 |         14 |
+| Total                                                                |            |     14,619 |        192 |        394 |     15,205 |
++----------------------------------------------------------------------+------------+------------+------------+------------+------------+

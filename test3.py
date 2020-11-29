@@ -3,7 +3,7 @@ from Settings import UserSettings
 from SensorsActuators import Actuators
 
 if __name__ == "__main__":
-    UserSettings.user_settings.set_time(5)
+    UserSettings.user_settings.set_inlet_time(5)
     if Tanks.tanks.fill_tank("manual","left") == True:
         print("Process Complete")
     else:
@@ -11,3 +11,4 @@ if __name__ == "__main__":
         print("Unable to complete process")
         time.sleep(3)
         Actuators.valve.alarm_off()
+        

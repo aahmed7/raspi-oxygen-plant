@@ -1,0 +1,21 @@
+"filename", "language", "Python", "Markdown", "Django txt", "comment", "blank", "total"
+"g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\AdminMenu.py", "Python", 2, 0, 0, 1, 1, 4
+"g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\MainMenu.py", "Python", 11, 0, 0, 0, 2, 13
+"g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\PARTDESCRIPTIONS.md", "Markdown", 0, 24, 0, 0, 4, 28
+"g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\README.md", "Markdown", 0, 19, 0, 0, 4, 23
+"g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\SensorsActuators\Actuators.py", "Python", 51, 0, 0, 0, 7, 58
+"g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\SensorsActuators\Sensors.py", "Python", 55, 0, 0, 13, 14, 82
+"g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\SensorsActuators\__init__.py", "Python", 0, 0, 0, 0, 1, 1
+"g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\Settings\AdminSettings.py", "Python", 8, 0, 0, 4, 4, 16
+"g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\Settings\Alarms.py", "Python", 6, 0, 0, 3, 2, 11
+"g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\Settings\DataLogs.py", "Python", 4, 0, 0, 2, 1, 7
+"g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\Settings\Login.py", "Python", 45, 0, 0, 2, 6, 53
+"g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\Settings\UserSettings.py", "Python", 57, 0, 0, 7, 9, 73
+"g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\Tanks.py", "Python", 159, 0, 0, 21, 22, 202
+"g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\app.py", "Python", 9, 0, 0, 4, 4, 17
+"g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\functions.py", "Python", 6, 0, 0, 3, 6, 15
+"g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\requirements.txt", "Django txt", 0, 0, 4, 0, 0, 4
+"g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\test1.py", "Python", 6, 0, 0, 1, 1, 8
+"g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\test2.py", "Python", 22, 0, 0, 1, 7, 30
+"g:\CODINGLAB\VSCODE\RASPI_OXYGEN_PLANT\test3.py", "Python", 12, 0, 0, 0, 1, 13
+"Total", "-", 453, 43, 4, 62, 96, 658

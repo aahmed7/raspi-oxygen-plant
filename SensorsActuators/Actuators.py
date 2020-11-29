@@ -1,7 +1,27 @@
 from gpiozero import DigitalOutputDevice
 
 class Actuators:
+    """This class contains methods for directly interacting with the sensors.
+
+    Attributes:
+        press1 : airtank pressure sensor object
+        press2 : inlet pressure sensor object
+        press3 : left tank pressure sensor object
+        press4 : right tank pressure sensor object
+        press5 : oxygen tank pressure sensor object
+        oxy1 : oxygen purity sensor object
+    """
+
     def __init__(self):
+        '''
+        Initialize the ADC
+
+            Parameters:
+                    none.
+
+            Returns:
+                    outlet time in sec.
+        '''
         self.alarm = DigitalOutputDevice("BOARD7")
         self.left_in = DigitalOutputDevice("BOARD12")
         self.right_in = DigitalOutputDevice("BOARD16")
@@ -11,6 +31,15 @@ class Actuators:
         self.right_out = DigitalOutputDevice("BOARD32")
 
     def valve_open(self, valve):
+        '''
+        Initialize the ADC
+
+            Parameters:
+                    none.
+
+            Returns:
+                    outlet time in sec.
+        '''
         print("Opening "+valve)
         if valve == "left_in":
             self.left_in.on()
@@ -26,6 +55,15 @@ class Actuators:
             self.right_out.on()
 
     def valve_close(self,valve):
+        '''
+        Initialize the ADC
+
+            Parameters:
+                    none.
+
+            Returns:
+                    outlet time in sec.
+        '''
         print("Closing "+valve)
         if valve == "left_in":
             self.left_in.off()
@@ -41,6 +79,15 @@ class Actuators:
             self.right_out.off()
 
     def valve_close_all(self):
+        '''
+        Initialize the ADC
+
+            Parameters:
+                    none.
+
+            Returns:
+                    outlet time in sec.
+        '''
         print("Closing All Valves.")
         self.left_in.off()
         self.right_in.off()
@@ -50,9 +97,27 @@ class Actuators:
         self.right_out.off()
 
     def alarm_on(self):
+        '''
+        Initialize the ADC
+
+            Parameters:
+                    none.
+
+            Returns:
+                    outlet time in sec.
+        '''
         self.alarm.on()
 
     def alarm_off(self):
+        '''
+        Initialize the ADC
+
+            Parameters:
+                    none.
+
+            Returns:
+                    outlet time in sec.
+        '''
         self.alarm.off()
 
 valve = Actuators()

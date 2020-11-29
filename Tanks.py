@@ -9,6 +9,15 @@ import time, threading
 # 3. outlet
 class Tanks:
     def check_inlet_safe_pressure(self,sensor_check):
+        '''
+        Checks if a given pressure sensor is in safe range
+
+            Parameters:
+                    sensor_check : Sensor to check.
+
+            Returns:
+                    boolean indicating safe state.
+        '''
         sensor_value = Sensors.sensors.read_pressure(sensor_check)
         print("Pressure_"+sensor_check+"="+str(sensor_value))
         if sensor_check == "press1" or sensor_check == "press2":
@@ -26,6 +35,15 @@ class Tanks:
             return False
 
     def watch_pressure_sensors(self):
+        '''
+        watch the inlet and airtank pressure sensors.
+        
+            Parameters:
+                    none.
+
+            Returns:
+                    boolean indicating safe state.
+        '''
         sensor_value = Sensors.sensors.read_pressure("press1")
         if sensor_value > 8 or sensor_value < 5:
             print("Press1 exceeded. Stopping.")
@@ -36,10 +54,40 @@ class Tanks:
             print("Press2 exceeded. Stopping.")
             return False
         return True
-            
-    # This method will perform the first step of the Oxygen generator
-    # process. inlet the oxygen to one of the two tanks.
+
+    def watch_pressure_sensors_for_time(self,runtime):
+        '''
+        watch the inlet and airtank pressure sensors for a
+        given time.
+        
+            Parameters:
+                    runtime : time to check continuously check
+                    the sensors.
+
+            Returns:
+                    boolean indicating safe state.
+        '''
+        start_time = time.time()
+        while True:
+            current_time = time.time()
+            elapsed_time = current_time - start_time
+            if elapsed_time > (runtime/2):
+                break
+            time.sleep(1)
+            if self.watch_pressure_sensors() == False:
+                return False
+
     def inlet(self, selected_tank="left"):
+        '''
+        This method will perform the first step of the Oxygen generator
+        process. inlet the oxygen to one of the two tanks.
+        
+            Parameters:
+                    selected_tank : Sensor to check.
+
+            Returns:
+                    boolean indicating process success or interruption.
+        '''
         print("Starting inlet stage for "+selected_tank+" tank")
         if selected_tank == "left":
             pressure_sensor = "press3"
@@ -48,22 +96,29 @@ class Tanks:
             pressure_sensor = "press4"
             selected_valve = "right_in"
         safety_check = self.check_inlet_safe_pressure(pressure_sensor)
+        # Inlet will be skipped if the pressure is already in required range.
         if safety_check == False:
             print("Pressure out of range. Skipping.")
             return False
-        # Get the running time
-        runtime = UserSettings.user_settings.get_time()
+        # Get the running time.
+        runtime = UserSettings.user_settings.get_inlet_time()
 
-        # Open valve, and don't close. this will stay open till stage 2
+        # Open valve, and don't close. this will stay open till stage 2.
         Actuators.valve.valve_open(selected_valve)
-        for i in range(runtime-1):
-            time.sleep(i)
-            if self.watch_pressure_sensors() == False:
-                return False
+        if self.watch_pressure_sensors_for_time(runtime)==False:
+            return False
         return True
 
-    # This is the second step. Balance the two tanks.
     def balance_tank(self,selected_tank="left"):
+        '''
+        This is the final step. Balance the two tanks.
+        
+            Parameters:
+                    selected_tank : Sensor to check.
+
+            Returns:
+                    boolean indicating process success or interruption.
+        '''
         print("Starting balance stage for "+selected_tank+" tank")
         if selected_tank == "left":
             primary_balance = "balance_left"
@@ -72,28 +127,35 @@ class Tanks:
             primary_balance = "balance_right"
             secondary_balance = "balance_left"
 
-        # Get the running time
-        runtime = UserSettings.user_settings.get_time()
+        # Get the running time.
+        runtime = UserSettings.user_settings.get_balance_time()
 
         if self.watch_pressure_sensors() == False:
             return False
-
         Actuators.valve.valve_open(primary_balance)
-        # Turn on secondary balance after half time
-        for i in range(int(runtime/2)):
-            time.sleep(i)
-            if self.watch_pressure_sensors() == False:
-                return False
+       
+        # Turn on secondary balance after half time.
+        start_time = time.time()
+        if self.watch_pressure_sensors_for_time(runtime)==False:
+            return False
         Actuators.valve.valve_open(secondary_balance)
         
-        for i in range(int(runtime/2)):
-            time.sleep(i)
-            if self.watch_pressure_sensors() == False:
-                return False
+        start_time = time.time()
+        if self.watch_pressure_sensors_for_time(runtime)==False:
+            return False
         Actuators.valve.valve_close_all()
         return True
 
     def outlet(self,selected_tank="left"):
+        '''
+        This is the second step. Open the outlet valve.
+        
+            Parameters:
+                    selected_tank : Sensor to check.
+
+            Returns:
+                    boolean indicating process success or interruption.
+        '''
         print("Starting outlet stage for "+selected_tank+" tank")
         if selected_tank == "left":
             selected_valve_in = "left_int"
@@ -104,68 +166,93 @@ class Tanks:
             selected_valve_out = "right_out"
             selected_valve_balance = "balance_right"
 
-        # Specify the running time for manual mode
-        runtime = UserSettings.user_settings.get_time()
+        # Specify the running time for manual mode.
+        runtime = UserSettings.user_settings.get_outlet_time()
 
         if self.watch_pressure_sensors() == False:
             return False
-        # Open in and out valves
+        # Open in and out valves.
         Actuators.valve.valve_open(selected_valve_in)
         Actuators.valve.valve_open(selected_valve_out)
         Actuators.valve.valve_open(selected_valve_balance)
-        # Close balance After 1 sec
+        # Close balance After 1 sec.
         time.sleep(1)
         Actuators.valve.valve_close(selected_valve_balance)
         if self.watch_pressure_sensors() == False:
             return False
-        # Open balance again for 1 sec after half time
-        # Close balance After 1 sec
-        for i in range(int(runtime/2)):
-            time.sleep(i)
-            if self.watch_pressure_sensors() == False:
-                return False
+        # Open balance again for 1 sec after half time.
+        # Close balance After 1 sec.
+        if self.watch_pressure_sensors_for_time(runtime)==False:
+            return False
         Actuators.valve.valve_open(selected_valve_balance)
         time.sleep(1)
         Actuators.valve.valve_close(selected_valve_balance)
         if self.watch_pressure_sensors() == False:
             return False
-        for i in range(int(runtime/2)):
-            time.sleep(i)
-            if self.watch_pressure_sensors() == False:
-                return False
+        if self.watch_pressure_sensors_for_time(runtime)==False:
+            return False
         Actuators.valve.valve_close_all()
         return True
 
-    def fill_tank(self,mode="manual",tank="default"):
+    def fill_tank(self,initialize=False,mode="manual",tank="default"):
+        '''
+        This method runs one cycle of the algorithm.
+        
+            Args:
+                    initialize: initializing stage? This stage skips inlet.
+                    mode: manual or auto mode.
+                    tank: left or right tank.
+
+            Returns:
+                    boolean indicating process success or interruption.
+        '''
         try:
             if tank == "default":
                 print("No tank selected")
                 return False
 
-            # Check if Air tank pressure is in range
+            # Set the purity value if initializing
+            if initialize == True:
+                self.last_purity= Sensors.sensors.read_oxygen_sensor()
+
+            # Check if Air tank pressure is in range.
             if self.check_inlet_safe_pressure("press1")==False:
                 print("Inlet at press1 not in range")
                 return False
             
-            # Check if Oxygent Generator inlet is in range
+            # Check if Oxygent Generator inlet is in range.
             if self.check_inlet_safe_pressure("press2")==False:
                 print("Inlet at press2 not in range")
                 return False
 
-            # Step 1, skip if not in range.
-            if self.inlet(tank) == False:
-                Actuators.valve.valve_close_all()
-                return False
+            # Step 1, skip if not in range or if initializing.
+            if initialize == True:
+                if self.inlet(tank) == False:
+                    Actuators.valve.valve_close_all()
+                    return False
 
-            # Step 2, outlet
+            # Step 2, outlet.
             if self.outlet(tank) == False:
                 Actuators.valve.valve_close_all()
                 return False
 
-            # Step 3, balance
+            # Step 3, balance.
             if self.balance_tank(tank) == False:
                 Actuators.valve.valve_close_all()
                 return False
+
+            # If mode is auto, then update the time for all stages
+            if mode=="auto" and initialize != True:
+                current_purity = Sensors.sensors.read_oxygen_sensor() - self.last_purity
+                if current_purity > 0:
+                    UserSettings.user_settings.set_inlet_time(UserSettings.user_settings.get_inlet_time()+6)
+                    UserSettings.user_settings.set_outlet_time(UserSettings.user_settings.get_outlet_time()+6)
+                    UserSettings.user_settings.set_balance_time(UserSettings.user_settings.get_balance_time()+6)
+                elif current_purity < 0:
+                    UserSettings.user_settings.set_inlet_time(UserSettings.user_settings.get_inlet_time()-6)
+                    UserSettings.user_settings.set_outlet_time(UserSettings.user_settings.get_outlet_time()-6)
+                    UserSettings.user_settings.set_balance_time(UserSettings.user_settings.get_balance_time()-6)
+                self.last_purity= Sensors.sensors.read_oxygen_sensor()
 
             return True
         except:
