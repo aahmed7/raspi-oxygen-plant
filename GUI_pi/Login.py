@@ -1,25 +1,6 @@
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import (QApplication, QWidget, QPushButton, QLabel, QLineEdit, QGridLayout, QMessageBox)
-
-# class Login(QtWidgets.QWidget):
-
-#	 switch_window = QtCore.pyqtSignal()
-
-#	 def __init__(self):
-#		 QtWidgets.QWidget.__init__(self)
-#		 self.setWindowTitle('Login')
-
-#		 layout = QtWidgets.QGridLayout()
-
-#		 self.button = QtWidgets.QPushButton('Login')
-#		 self.button.clicked.connect(self.login)
-
-#		 layout.addWidget(self.button)
-
-#		 self.setLayout(layout)
-
-#	 def login(self):
-#		 self.switch_window.emit()
+from Settings import UserSettings
 
 class Login(QtWidgets.QWidget):
 	switch_window = QtCore.pyqtSignal()
@@ -47,7 +28,7 @@ class Login(QtWidgets.QWidget):
 	def check_password(self):
 		msg = QMessageBox()
 
-		if self.lineEdit_password.text() == '000':
+		if self.lineEdit_password.text() == str(UserSettings.user_settings.password):
 			self.switch_window.emit()
 		else:
 			msg.setText('Incorrect Password')

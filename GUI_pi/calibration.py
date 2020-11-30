@@ -33,6 +33,13 @@ class Calibration(QtWidgets.QWidget, Ui_Form):
         self.otank_bar.setMaximum(20/Sensors.sensors.PRESSURE_SCALER5)
         self.purity_bar.setMaximum(20/Sensors.sensors.OXY_SCALER)
 
+        self.maxvalue1.setValue(20/Sensors.sensors.PRESSURE_SCALER1)
+        self.maxvalue2.setValue(20/Sensors.sensors.PRESSURE_SCALER2)
+        self.maxvalue3.setValue(20/Sensors.sensors.PRESSURE_SCALER3)
+        self.maxvalue4.setValue(20/Sensors.sensors.PRESSURE_SCALER4)
+        self.maxvalue5.setValue(20/Sensors.sensors.PRESSURE_SCALER5)
+        self.maxvalue6.setValue(20/Sensors.sensors.OXY_SCALER)
+
         self.back.clicked.connect(self.backbutton_handler)
         self.pushButton.clicked.connect(self.calibrate1)
         self.pushButton_2.clicked.connect(self.calibrate2)
@@ -76,12 +83,12 @@ class Calibration(QtWidgets.QWidget, Ui_Form):
         self.otankcur.setText("{:.1f}".format(Sensors.sensors.read_pressure("press5")))
         self.purity_cur.setText("{:.1f}".format(Sensors.sensors.read_oxygen_sensor()))
 
-        self.airtank_raw.setText("{:.1f}".format(Sensors.sensors.read_sensor("press1")))
-        self.inlet_raw.setText("{:.1f}".format(Sensors.sensors.read_sensor("press2")))
-        self.left_raw.setText("{:.1f}".format(Sensors.sensors.read_sensor("press3")))
-        self.right_raw.setText("{:.1f}".format(Sensors.sensors.read_sensor("press4")))
-        self.otank_raw.setText("{:.1f}".format(Sensors.sensors.read_sensor("press5")))
-        self.purity_raw.setText("{:.1f}".format(Sensors.sensors.read_sensor("oxy1")))
+        self.airtank_raw.setText("{:.1f}".format(Sensors.sensors.read_sensor("press1")/32768*25))
+        self.inlet_raw.setText("{:.1f}".format(Sensors.sensors.read_sensor("press2")/32768*25))
+        self.left_raw.setText("{:.1f}".format(Sensors.sensors.read_sensor("press3")/32768*25))
+        self.right_raw.setText("{:.1f}".format(Sensors.sensors.read_sensor("press4")/32768*25))
+        self.otank_raw.setText("{:.1f}".format(Sensors.sensors.read_sensor("press5")/32768*25))
+        self.purity_raw.setText("{:.1f}".format(Sensors.sensors.read_sensor("oxy1")/32768*25))
 
         self.airtank_bar.setValue(int(Sensors.sensors.read_pressure("press1")))
         self.inlet_bar.setValue(int(Sensors.sensors.read_pressure("press2")))

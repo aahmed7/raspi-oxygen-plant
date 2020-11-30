@@ -59,13 +59,13 @@ class Sensors:
         # Resistor installed on the board for volt -> current conversion
         self.RES = 200
         # Scale current to pressure. scaler = 20mA/PRESSURE_SENSOR_MAX
-        self.PRESSURE_SCALER1 = 1
-        self.PRESSURE_SCALER2 = 1
-        self.PRESSURE_SCALER3 = 1
-        self.PRESSURE_SCALER4 = 1
-        self.PRESSURE_SCALER5 = 1
+        self.PRESSURE_SCALER1 = 1.0
+        self.PRESSURE_SCALER2 = 1.0
+        self.PRESSURE_SCALER3 = 1.0
+        self.PRESSURE_SCALER4 = 1.0
+        self.PRESSURE_SCALER5 = 1.0
         # Scale current to oxygen. scaler = 20mA/OXYGEN_SENSOR_MAX
-        self.OXY_SCALER = 1
+        self.OXY_SCALER = 1.0
 
     def set_pressure_sensor_range(self, sensor_name, pressure_sensor_max):
         '''
@@ -78,15 +78,15 @@ class Sensors:
                     outlet time in sec.
         '''
         if sensor_name == "press1":
-            self.PRESSURE_SCALER1 = .02/pressure_sensor_max
+            self.PRESSURE_SCALER1 = 20/float(pressure_sensor_max)
         if sensor_name == "press2":
-            self.PRESSURE_SCALER2 = .02/pressure_sensor_max
+            self.PRESSURE_SCALER2 = 20/float(pressure_sensor_max)
         if sensor_name == "press3":
-            self.PRESSURE_SCALER3 = .02/pressure_sensor_max
+            self.PRESSURE_SCALER3 = 20/float(pressure_sensor_max)
         if sensor_name == "press4":
-            self.PRESSURE_SCALER4 = .02/pressure_sensor_max
+            self.PRESSURE_SCALER4 = 20/float(pressure_sensor_max)
         if sensor_name == "press5":
-            self.PRESSURE_SCALER5 = .02/pressure_sensor_max
+            self.PRESSURE_SCALER5 = 20/float(pressure_sensor_max)
 
     def set_oxygen_sensor_range(self, oxygen_sensor_max):
         '''
@@ -98,7 +98,7 @@ class Sensors:
             Returns:
                     outlet time in sec.
         '''
-        self.OXY_SCALER = .02/oxygen_sensor_max
+        self.OXY_SCALER = 20/float(oxygen_sensor_max)
 
     def read_sensor(self, sensor_name="press1"):
         '''
@@ -123,6 +123,14 @@ class Sensors:
         if sensor_name == "oxy1":
             return self.oxy1.value
 
+    def clamp(self,n, minn, maxn):
+        if n < minn:
+            return minn
+        elif n > maxn:
+            return maxn
+        else:
+            return n
+
     def read_pressure(self, sensor_name="press1"):
         '''
         Read pressure from a sensor. Set the pressure sensor range manually
@@ -134,15 +142,15 @@ class Sensors:
                     outlet time in sec.
         '''
         if sensor_name == "press1":
-            return (self.press1.value/32768.0)*5.0/self.RES*1000*self.PRESSURE_SCALER1
+            return self.clamp((self.press1.value/32768.0)*5.0/self.RES*1000*self.PRESSURE_SCALER1,0,20/self.PRESSURE_SCALER1)
         if sensor_name == "press2":
-            return (self.press2.value/32768.0)*5.0/self.RES*1000*self.PRESSURE_SCALER2
+            return self.clamp((self.press2.value/32768.0)*5.0/self.RES*1000*self.PRESSURE_SCALER2,0,20/self.PRESSURE_SCALER2)
         if sensor_name == "press3":
-            return (self.press3.value/32768.0)*5.0/self.RES*1000*self.PRESSURE_SCALER3
+            return self.clamp((self.press3.value/32768.0)*5.0/self.RES*1000*self.PRESSURE_SCALER3,0,20/self.PRESSURE_SCALER3)
         if sensor_name == "press4":
-            return (self.press4.value/32768.0)*5.0/self.RES*1000*self.PRESSURE_SCALER4
+            return self.clamp((self.press4.value/32768.0)*5.0/self.RES*1000*self.PRESSURE_SCALER4,0,20/self.PRESSURE_SCALER4)
         if sensor_name == "press5":
-            return (self.press5.value/32768.0)*5.0/self.RES*1000*self.PRESSURE_SCALER5
+            return self.clamp((self.press5.value/32768.0)*5.0/self.RES*1000*self.PRESSURE_SCALER5,0,20/self.PRESSURE_SCALER5)
 
     def read_oxygen_sensor(self):
         '''
@@ -154,7 +162,7 @@ class Sensors:
             Returns:
                     outlet time in sec.
         '''
-        return (self.oxy1.value/32768.0)*5.0/self.RES*1000*self.OXY_SCALER
+        return self.clamp((self.oxy1.value/32768.0)*5.0/self.RES*1000*self.OXY_SCALER,0,20/self.OXY_SCALER)
 
 
 sensors = Sensors()

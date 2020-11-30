@@ -73,10 +73,10 @@ class Controller:
         self.calibration_settings.showFullScreen()
 
     def signal_accept(self):
-        self.main.airtank_press.setText("{:.1f}".format(Sensors.sensors.read_pressure("press3")))
-        self.main.inlet_press.setText("{:.1f}".format(Sensors.sensors.read_pressure("press4")))
-        self.main.left_press.setText("{:.1f}".format(Sensors.sensors.read_pressure("press1")))
-        self.main.right_press.setText("{:.1f}".format(Sensors.sensors.read_pressure("press2")))
+        self.main.airtank_press.setText("{:.1f}".format(Sensors.sensors.read_pressure("press1")))
+        self.main.inlet_press.setText("{:.1f}".format(Sensors.sensors.read_pressure("press2")))
+        self.main.left_press.setText("{:.1f}".format(Sensors.sensors.read_pressure("press3")))
+        self.main.right_press.setText("{:.1f}".format(Sensors.sensors.read_pressure("press4")))
         self.main.oxy_press.setText("{:.1f}".format(Sensors.sensors.read_pressure("press5")))
         self.main.oxy_purity.setText("{:.1f}".format(Sensors.sensors.read_oxygen_sensor()))
         self.output_test_settings.airtank_press.setText("{:.1f}".format(Sensors.sensors.read_pressure("press3")))
@@ -85,6 +85,11 @@ class Controller:
         self.output_test_settings.right_press.setText("{:.1f}".format(Sensors.sensors.read_pressure("press2")))
         self.output_test_settings.oxy_press.setText("{:.1f}".format(Sensors.sensors.read_pressure("press5")))
         self.output_test_settings.oxy_purity.setText("{:.1f}".format(Sensors.sensors.read_oxygen_sensor()))
+        self.main.left_tank.setMaximum(20/Sensors.sensors.PRESSURE_SCALER3)
+        self.main.left_tank.setValue(Sensors.sensors.read_pressure("press3"))
+        self.main.right_tank.setMaximum(20/Sensors.sensors.PRESSURE_SCALER4)
+        self.main.right_tank.setValue(Sensors.sensors.read_pressure("press4"))
+
         
 
 class MainSensorThread(QThread):

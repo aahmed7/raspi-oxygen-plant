@@ -8,6 +8,10 @@ class UserSettings:
         self.balance_time = 14
         self.max_pressure = 8
         self.min_pressure = 5
+        self.password = 0
+
+    def set_password(self,password):
+        self.password = password
 
     def set_inlet_time(self,time=32):
         '''
