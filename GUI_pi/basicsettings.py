@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from GUI.skeleton.basicsettingsSkeleton import Ui_Form
+from GUI_pi.skeleton.basicsettingsSkeleton import Ui_Form
 
 class BasicSettings(QtWidgets.QWidget, Ui_Form):
     switch_adv_settings = QtCore.pyqtSignal()

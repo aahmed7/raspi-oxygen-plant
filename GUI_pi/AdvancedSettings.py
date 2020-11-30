@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtWidgets
-from GUI.skeleton.AdvancedSettingsSkeleton import Ui_Form
+from GUI_pi.skeleton.AdvancedSettingsSkeleton import Ui_Form
 
 class AdvancedSettings(QtWidgets.QWidget, Ui_Form):
 

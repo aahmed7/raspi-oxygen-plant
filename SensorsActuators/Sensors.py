@@ -1,7 +1,7 @@
 import gpiozero
 # Sensors are read using ADS1115
-import Adafruit_ADS1x15.ads1115 as ADS
-from Adafruit_ADS1x15.analog_in import AnalogIn
+import adafruit_ads1x15.ads1115 as ADS
+from adafruit_ads1x15.analog_in import AnalogIn
 import busio
 import board
 
@@ -59,11 +59,15 @@ class Sensors:
         # Resistor installed on the board for volt -> current conversion
         self.RES = 200
         # Scale current to pressure. scaler = 20mA/PRESSURE_SENSOR_MAX
-        self.PRESSURE_SCALER = 1
+        self.PRESSURE_SCALER1 = 1
+        self.PRESSURE_SCALER2 = 1
+        self.PRESSURE_SCALER3 = 1
+        self.PRESSURE_SCALER4 = 1
+        self.PRESSURE_SCALER5 = 1
         # Scale current to oxygen. scaler = 20mA/OXYGEN_SENSOR_MAX
         self.OXY_SCALER = 1
 
-    def set_pressure_sensor_range(self, pressure_sensor_max):
+    def set_pressure_sensor_range(self, sensor_name, pressure_sensor_max):
         '''
         Set pressure sensor range
 
@@ -73,7 +77,16 @@ class Sensors:
             Returns:
                     outlet time in sec.
         '''
-        self.PRESSURE_SCALER = .02/pressure_sensor_max
+        if sensor_name == "press1":
+            self.PRESSURE_SCALER1 = .02/pressure_sensor_max
+        if sensor_name == "press2":
+            self.PRESSURE_SCALER2 = .02/pressure_sensor_max
+        if sensor_name == "press3":
+            self.PRESSURE_SCALER3 = .02/pressure_sensor_max
+        if sensor_name == "press4":
+            self.PRESSURE_SCALER4 = .02/pressure_sensor_max
+        if sensor_name == "press5":
+            self.PRESSURE_SCALER5 = .02/pressure_sensor_max
 
     def set_oxygen_sensor_range(self, oxygen_sensor_max):
         '''
@@ -121,15 +134,15 @@ class Sensors:
                     outlet time in sec.
         '''
         if sensor_name == "press1":
-            return (self.press1.value/32768.0)*5.0/self.RES*1000*self.PRESSURE_SCALER
+            return (self.press1.value/32768.0)*5.0/self.RES*1000*self.PRESSURE_SCALER1
         if sensor_name == "press2":
-            return self.press2.value/32768.0*5.0/self.RES*1000*self.PRESSURE_SCALER
+            return (self.press2.value/32768.0)*5.0/self.RES*1000*self.PRESSURE_SCALER2
         if sensor_name == "press3":
-            return self.press3.value/32768.0*5.0/self.RES*1000*self.PRESSURE_SCALER
+            return (self.press3.value/32768.0)*5.0/self.RES*1000*self.PRESSURE_SCALER3
         if sensor_name == "press4":
-            return self.press4.value/32768.0*5.0/self.RES*1000*self.PRESSURE_SCALER
+            return (self.press4.value/32768.0)*5.0/self.RES*1000*self.PRESSURE_SCALER4
         if sensor_name == "press5":
-            return self.press5.value/32768.0*5.0/self.RES*1000*self.PRESSURE_SCALER
+            return (self.press5.value/32768.0)*5.0/self.RES*1000*self.PRESSURE_SCALER5
 
     def read_oxygen_sensor(self):
         '''

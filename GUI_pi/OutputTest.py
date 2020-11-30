@@ -9,7 +9,8 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from GUI.skeleton.OutputTestSkeleton import Ui_Form
+from GUI_pi.skeleton.OutputTestSkeleton import Ui_Form
+from SensorsActuators import Actuators
 
 class OutputSettings(QtWidgets.QWidget, Ui_Form):
     switch_adv_settings = QtCore.pyqtSignal()
@@ -18,7 +19,69 @@ class OutputSettings(QtWidgets.QWidget, Ui_Form):
         QtWidgets.QWidget.__init__(self)
         self.setupUi(self)
 
+        # Buttons handlers
         self.back.clicked.connect(self.backbutton_handler)
+
+        self.leftin_btn.pressed.connect(self.leftin_btn_pressed)
+        self.leftin_btn.released.connect(self.leftin_btn_released)
+        self.rightin_btn.pressed.connect(self.rightin_btn_pressed)
+        self.rightin_btn.released.connect(self.rightin_btn_released)
+        self.bleft_btn.pressed.connect(self.balanceleft_btn_pressed)
+        self.bleft_btn.released.connect(self.balanceleft_btn_released)
+        self.bright_btn.pressed.connect(self.balanceright_btn_pressed)
+        self.bright_btn.released.connect(self.balanceright_btn_released)
+        self.leftout_btn.pressed.connect(self.leftout_btn_pressed)
+        self.leftout_btn.released.connect(self.leftout_btn_released)
+        self.rightout_btn.pressed.connect(self.rightout_btn_pressed)
+        self.rightout_btn.released.connect(self.rightout_btn_released)
     
     def backbutton_handler(self):
         self.switch_adv_settings.emit()
+    
+    def leftin_btn_pressed(self):
+        Actuators.valve.valve_open("left_in")
+        self.leftin_valve.setPixmap(QtGui.QPixmap(":/img/valve_open.png"))
+
+    def leftin_btn_released(self):
+        Actuators.valve.valve_close("left_in")
+        self.leftin_valve.setPixmap(QtGui.QPixmap(":/img/valve_close.png"))
+
+    def rightin_btn_pressed(self):
+        Actuators.valve.valve_open("right_in")
+        self.rightin_valve.setPixmap(QtGui.QPixmap(":/img/valve_open.png"))
+
+    def rightin_btn_released(self):
+        Actuators.valve.valve_close("right_in")
+        self.rightin_valve.setPixmap(QtGui.QPixmap(":/img/valve_close.png"))
+    
+    def balanceleft_btn_pressed(self):
+        Actuators.valve.valve_open("balance_left")
+        self.bleft_valve.setPixmap(QtGui.QPixmap(":/img/valve_open.png"))
+
+    def balanceleft_btn_released(self):
+        Actuators.valve.valve_close("balance_left")
+        self.bleft_valve.setPixmap(QtGui.QPixmap(":/img/valve_close.png"))
+    
+    def balanceright_btn_pressed(self):
+        Actuators.valve.valve_open("balance_right")
+        self.bright_valve.setPixmap(QtGui.QPixmap(":/img/valve_open.png"))
+
+    def balanceright_btn_released(self):
+        Actuators.valve.valve_close("balance_right")
+        self.bright_valve.setPixmap(QtGui.QPixmap(":/img/valve_close.png"))
+
+    def leftout_btn_pressed(self):
+        Actuators.valve.valve_open("left_out")
+        self.leftout_valve.setPixmap(QtGui.QPixmap(":/img/valve_open.png"))
+
+    def leftout_btn_released(self):
+        Actuators.valve.valve_close("left_out")
+        self.leftout_valve.setPixmap(QtGui.QPixmap(":/img/valve_close.png"))
+    
+    def rightout_btn_pressed(self):
+        Actuators.valve.valve_open("right_out")
+        self.rightout_valve.setPixmap(QtGui.QPixmap(":/img/valve_open.png"))
+
+    def rightout_btn_released(self):
+        Actuators.valve.valve_close("right_out")
+        self.rightout_valve.setPixmap(QtGui.QPixmap(":/img/valve_close.png"))

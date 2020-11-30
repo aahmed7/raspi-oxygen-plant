@@ -9,7 +9,11 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from GUI.skeleton.calibrationSkeleton import Ui_Form
+from GUI_pi.skeleton.calibrationSkeleton import Ui_Form
+from PyQt5.QtCore import QThread
+from PyQt5.QtCore import *
+from SensorsActuators import Sensors
+import time
 
 class Calibration(QtWidgets.QWidget, Ui_Form):
     switch_adv_settings = QtCore.pyqtSignal()
@@ -18,7 +22,79 @@ class Calibration(QtWidgets.QWidget, Ui_Form):
         QtWidgets.QWidget.__init__(self)
         self.setupUi(self)
 
+        self.thread = CalibrateThread()
+        self.thread._signal.connect(self.signal_accept)
+        self.thread.start()
+
+        self.airtank_bar.setMaximum(20/Sensors.sensors.PRESSURE_SCALER1)
+        self.inlet_bar.setMaximum(20/Sensors.sensors.PRESSURE_SCALER2)
+        self.left_bar.setMaximum(20/Sensors.sensors.PRESSURE_SCALER3)
+        self.right_bar.setMaximum(20/Sensors.sensors.PRESSURE_SCALER4)
+        self.otank_bar.setMaximum(20/Sensors.sensors.PRESSURE_SCALER5)
+        self.purity_bar.setMaximum(20/Sensors.sensors.OXY_SCALER)
+
         self.back.clicked.connect(self.backbutton_handler)
+        self.pushButton.clicked.connect(self.calibrate1)
+        self.pushButton_2.clicked.connect(self.calibrate2)
+        self.pushButton_3.clicked.connect(self.calibrate3)
+        self.pushButton_4.clicked.connect(self.calibrate4)
+        self.pushButton_5.clicked.connect(self.calibrate5)
+        self.pushButton_6.clicked.connect(self.calibrate6)
     
     def backbutton_handler(self):
         self.switch_adv_settings.emit()
+
+    def calibrate1(self):
+        Sensors.sensors.set_pressure_sensor_range("press1",self.maxvalue1.value())
+        self.airtank_bar.setMaximum(20/Sensors.sensors.PRESSURE_SCALER1)
+
+    def calibrate2(self):
+        Sensors.sensors.set_pressure_sensor_range("press2",self.maxvalue2.value())
+        self.inlet_bar.setMaximum(20/Sensors.sensors.PRESSURE_SCALER2)
+
+    def calibrate3(self):
+        Sensors.sensors.set_pressure_sensor_range("press3",self.maxvalue3.value())
+        self.left_bar.setMaximum(20/Sensors.sensors.PRESSURE_SCALER3)
+
+    def calibrate4(self):
+        Sensors.sensors.set_pressure_sensor_range("press4",self.maxvalue4.value())
+        self.right_bar.setMaximum(20/Sensors.sensors.PRESSURE_SCALER4)
+
+    def calibrate5(self):
+        Sensors.sensors.set_pressure_sensor_range("press5",self.maxvalue5.value())
+        self.otank_bar.setMaximum(20/Sensors.sensors.PRESSURE_SCALER5)
+
+    def calibrate6(self):
+        Sensors.sensors.set_oxygen_sensor_range(self.maxvalue6.value())
+        self.purity_bar.setMaximum(20/Sensors.sensors.OXY_SCALER)
+
+    def signal_accept(self):
+        self.airtank_cur.setText("{:.1f}".format(Sensors.sensors.read_pressure("press1")))
+        self.inlet_cur.setText("{:.1f}".format(Sensors.sensors.read_pressure("press2")))
+        self.left_cur.setText("{:.1f}".format(Sensors.sensors.read_pressure("press3")))
+        self.right_cur.setText("{:.1f}".format(Sensors.sensors.read_pressure("press4")))
+        self.otankcur.setText("{:.1f}".format(Sensors.sensors.read_pressure("press5")))
+        self.purity_cur.setText("{:.1f}".format(Sensors.sensors.read_oxygen_sensor()))
+
+        self.airtank_raw.setText("{:.1f}".format(Sensors.sensors.read_sensor("press1")))
+        self.inlet_raw.setText("{:.1f}".format(Sensors.sensors.read_sensor("press2")))
+        self.left_raw.setText("{:.1f}".format(Sensors.sensors.read_sensor("press3")))
+        self.right_raw.setText("{:.1f}".format(Sensors.sensors.read_sensor("press4")))
+        self.otank_raw.setText("{:.1f}".format(Sensors.sensors.read_sensor("press5")))
+        self.purity_raw.setText("{:.1f}".format(Sensors.sensors.read_sensor("oxy1")))
+
+        self.airtank_bar.setValue(int(Sensors.sensors.read_pressure("press1")))
+        self.inlet_bar.setValue(int(Sensors.sensors.read_pressure("press2")))
+        self.left_bar.setValue(int(Sensors.sensors.read_pressure("press3")))
+        self.right_bar.setValue(int(Sensors.sensors.read_pressure("press4")))
+        self.otank_bar.setValue(int(Sensors.sensors.read_pressure("press5")))
+        self.purity_bar.setValue(int(Sensors.sensors.read_oxygen_sensor()))
+
+class CalibrateThread(QThread):
+    _signal = pyqtSignal()
+
+    @pyqtSlot()
+    def run(self):
+        while True:
+            time.sleep(1)
+            self._signal.emit()

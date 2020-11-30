@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from GUI.skeleton.MainwindowSkeleton import Ui_Form
+from GUI_pi.skeleton.MainwindowSkeleton import Ui_Form
 
 class MainWindow(QtWidgets.QWidget, Ui_Form):
     switch_settings = QtCore.pyqtSignal()
@@ -17,3 +17,4 @@ class MainWindow(QtWidgets.QWidget, Ui_Form):
 
     def startstopbutton_handler(self):
         self.dialog_startstop.emit()
+        
