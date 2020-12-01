@@ -10,11 +10,12 @@
 
 from PyQt5 import QtWidgets,QtGui,QtCore
 from GUI_pi.skeleton.StartStopSkeleton import Ui_Dialog
-from PyQt5.QtCore import QThread, pyqtSignal
 from PyQt5.QtCore import *
-import time
 
 class StartStop(QtWidgets.QDialog, Ui_Dialog):
+    start_process = QtCore.pyqtSignal()
+    stop_process = QtCore.pyqtSignal()
+
     def __init__(self):
         QtWidgets.QDialog.__init__(self)
         self.setupUi(self)
@@ -24,29 +25,39 @@ class StartStop(QtWidgets.QDialog, Ui_Dialog):
         self.icon_off = QtGui.QIcon()
         self.icon_off.addPixmap(QtGui.QPixmap(":/img/off.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
 
-        self.back.clicked.connect(self.close)
+        self.back.clicked.connect(self.back_btn_handler)
         self.startstop.clicked.connect(self.startstop_handler)
         self.auto_btn.clicked.connect(self.autobtn_handler)
 
         self.process = False
         self.auto = False
+
+    def back_btn_handler(self):
+        self.auto_btn.setEnabled(True)
+        self.stop_process.emit()
+        self.startstop.setIcon(self.icon_off)
+        self.startstop.setIconSize(QtCore.QSize(100, 200))
+        self.close()
         
     def startstop_handler(self):
         if self.process == False:
             self.process = True
             self.startstop.setIcon(self.icon_on)
             self.startstop.setIconSize(QtCore.QSize(100, 200))
-            self.thread = Thread()
-            self.thread._signal.connect(self.signal_accept)
-            self.thread.start()
+            self.start_process.emit()
             self.auto_btn.setEnabled(False)
         else:
             self.process = False
-            self.thread.terminate()
+            self.stop_process.emit()
             self.startstop.setIcon(self.icon_off)
             self.startstop.setIconSize(QtCore.QSize(100, 200))
             self.auto_btn.setEnabled(True)
 
+    def hardstop(self):
+        self.process = False
+        self.startstop.setIcon(self.icon_off)
+        self.startstop.setIconSize(QtCore.QSize(100, 200))
+        self.auto_btn.setEnabled(True)
 
     def autobtn_handler(self):
         if self.auto == True:
@@ -57,18 +68,3 @@ class StartStop(QtWidgets.QDialog, Ui_Dialog):
             self.auto = True
             self.auto_btn.setIcon(self.icon_on)
             self.auto_btn.setIconSize(QtCore.QSize(100, 200))
-
-
-    def signal_accept(self):
-        pass
-
-class Thread(QThread):
-    _signal = pyqtSignal()
-
-    @pyqtSlot()
-    def run(self):
-        while True:
-            time.sleep(1)
-            self._signal.emit()
-
-

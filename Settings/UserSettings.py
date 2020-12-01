@@ -3,15 +3,28 @@ from SensorsActuators import Actuators
 
 class UserSettings:
     def __init__(self):
-        self.inlet_time = 32
-        self.outlet_time = 22
-        self.balance_time = 14
+        self.inlet_time = 5
+        self.outlet_time = 5
+        self.balance_time = 5
         self.max_pressure = 8
-        self.min_pressure = 5
+        self.min_pressure = 3
+        self.process_pressure_min = 5 
+        self.process_pressure_max = 8
         self.password = 0
+        self.initialize = False
+        self.initialRounds = 2
+        self.last_purity=0
 
     def set_password(self,password):
         self.password = password
+
+    def clamp(self,n, minn, maxn):
+        if n < minn:
+            return minn
+        elif n > maxn:
+            return maxn
+        else:
+            return n
 
     def set_inlet_time(self,time=32):
         '''
@@ -23,6 +36,7 @@ class UserSettings:
             Returns:
                     none.
         '''
+        self.clamp(time,6,60)
         self.inlet_time = time
 
     def get_inlet_time(self):
@@ -47,6 +61,7 @@ class UserSettings:
             Returns:
                     none.
         '''
+        self.clamp(time,6,60)
         self.outlet_time = time
 
     def get_outlet_time(self):
@@ -71,6 +86,7 @@ class UserSettings:
             Returns:
                     none.
         '''
+        self.clamp(time,6,60)
         self.balance_time = time
 
     def get_balance_time(self):

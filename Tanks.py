@@ -1,7 +1,7 @@
 from Settings import UserSettings
 from SensorsActuators import Sensors
 from SensorsActuators import Actuators
-import time, threading
+import time
 
 # Oxygen generation is divided into 3 phases
 # 1. inlet
@@ -21,12 +21,12 @@ class Tanks:
         sensor_value = Sensors.sensors.read_pressure(sensor_check)
         print("Pressure_"+sensor_check+"="+str(sensor_value))
         if sensor_check == "press1" or sensor_check == "press2":
-            if sensor_value > 8 or sensor_value < 5:
+            if sensor_value > UserSettings.user_settings.max_pressure or sensor_value < UserSettings.user_settings.min_pressure:
                 return False
             else:
                 return True
         elif sensor_check == "press3" or sensor_check == "press4" or sensor_check == "press5":
-            if sensor_value > 8:
+            if sensor_value > UserSettings.user_settings.process_pressure_max:
                 return False
             else:
                 return True
@@ -45,12 +45,12 @@ class Tanks:
                     boolean indicating safe state.
         '''
         sensor_value = Sensors.sensors.read_pressure("press1")
-        if sensor_value > 8 or sensor_value < 5:
+        if sensor_value > UserSettings.user_settings.max_pressure or sensor_value < UserSettings.user_settings.min_pressure:
             print("Press1 exceeded. Stopping.")
             return False
 
         sensor_value = Sensors.sensors.read_pressure("press1")
-        if sensor_value > 8 or sensor_value < 5:
+        if sensor_value > UserSettings.user_settings.max_pressure or sensor_value < UserSettings.user_settings.min_pressure:
             print("Press2 exceeded. Stopping.")
             return False
         return True
@@ -220,7 +220,7 @@ class Tanks:
                 print("Inlet at press1 not in range")
                 return False
             
-            # Check if Oxygent Generator inlet is in range.
+            # Check if Oxygen Generator inlet is in range.
             if self.check_inlet_safe_pressure("press2")==False:
                 print("Inlet at press2 not in range")
                 return False

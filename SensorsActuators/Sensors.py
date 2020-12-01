@@ -59,11 +59,11 @@ class Sensors:
         # Resistor installed on the board for volt -> current conversion
         self.RES = 200
         # Scale current to pressure. scaler = 20mA/PRESSURE_SENSOR_MAX
-        self.PRESSURE_SCALER1 = 1.0
-        self.PRESSURE_SCALER2 = 1.0
-        self.PRESSURE_SCALER3 = 1.0
-        self.PRESSURE_SCALER4 = 1.0
-        self.PRESSURE_SCALER5 = 1.0
+        self.PRESSURE_SCALER1 = 4
+        self.PRESSURE_SCALER2 = 4
+        self.PRESSURE_SCALER3 = 4
+        self.PRESSURE_SCALER4 = 4
+        self.PRESSURE_SCALER5 = 4
         # Scale current to oxygen. scaler = 20mA/OXYGEN_SENSOR_MAX
         self.OXY_SCALER = 1.0
 

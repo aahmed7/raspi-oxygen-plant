@@ -30,8 +30,8 @@ class AdvancedSettings(QtWidgets.QWidget, Ui_Form):
         self.balance_wait.setValue(UserSettings.user_settings.balance_time)
         self.initial_press.setValue(UserSettings.user_settings.min_pressure)
         self.final_press.setValue(UserSettings.user_settings.max_pressure)
-        self.password.setValue(UserSettings.user_settings.password)
 
+        self.factory_reset.clicked.connect(self.factory_reset_func)
 
     def basicsettingsbutton_handler(self):
         self.switch_basic_settings.emit()
@@ -42,24 +42,26 @@ class AdvancedSettings(QtWidgets.QWidget, Ui_Form):
     def calibrationsettingsbutton_handler(self):
         self.switch_calibration_settings.emit()
 
-    def factory_reset(self):
+    def factory_reset_func(self):
         UserSettings.user_settings.set_inlet_time()
         UserSettings.user_settings.set_outlet_time()
         UserSettings.user_settings.set_balance_time()
         UserSettings.user_settings.set_min_pressure(3)
         UserSettings.user_settings.set_max_pressure(8)
-        UserSettings.user_settings.password(0)
         self.inlet_time.setValue(UserSettings.user_settings.inlet_time)
         self.outlet_time.setValue(UserSettings.user_settings.outlet_time)
         self.balance_wait.setValue(UserSettings.user_settings.balance_time)
         self.initial_press.setValue(UserSettings.user_settings.min_pressure)
         self.final_press.setValue(UserSettings.user_settings.max_pressure)
-        self.password.setValue(UserSettings.user_settings.password)
+        # self.password.setValue(UserSettings.user_settings.password)
         self.inlet_time.valueChanged.connect(self.update_inlet_time)
         self.outlet_time.valueChanged.connect(self.update_outlet_time)
         self.balance_wait.valueChanged.connect(self.update_balance_time)
         self.initial_press.valueChanged.connect(self.update_min_pressure)
-        self.final_press.textChanged.connect(self.update_max_pressure)
+        self.final_press.valueChanged.connect(self.update_max_pressure)
+        self.password.textChanged.connect(self.update_password)
+
+        self.init_btn.clicked.connect(self.initializer_update)
 
     def update_inlet_time(self):
         UserSettings.user_settings.set_inlet_time(int(self.inlet_time.value()))
@@ -73,3 +75,8 @@ class AdvancedSettings(QtWidgets.QWidget, Ui_Form):
         UserSettings.user_settings.set_max_pressure(int(self.final_press.value()))
     def update_password(self):
         UserSettings.user_settings.set_password(int(self.password.toPlainText()))
+        print(UserSettings.user_settings.password)
+
+    def initializer_update(self):
+        UserSettings.user_settings.initialize = True
+        UserSettings.user_settings.initialRounds = self.initial_rounds.value()
