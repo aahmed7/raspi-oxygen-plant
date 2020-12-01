@@ -17,6 +17,7 @@ class AdvancedSettings(QtWidgets.QWidget, Ui_Form):
     switch_basic_settings = QtCore.pyqtSignal()
     switch_output_settings = QtCore.pyqtSignal()
     switch_calibration_settings = QtCore.pyqtSignal()
+    update_passwd = QtCore.pyqtSignal()
 
     def __init__(self):
         QtWidgets.QWidget.__init__(self)
@@ -30,8 +31,10 @@ class AdvancedSettings(QtWidgets.QWidget, Ui_Form):
         self.balance_wait.setValue(UserSettings.user_settings.balance_time)
         self.initial_press.setValue(UserSettings.user_settings.min_pressure)
         self.final_press.setValue(UserSettings.user_settings.max_pressure)
+        self.update_pass.clicked.connect(self.update_password)
 
         self.factory_reset.clicked.connect(self.factory_reset_func)
+        self.password.setPlainText(str(UserSettings.user_settings.password))
 
     def basicsettingsbutton_handler(self):
         self.switch_basic_settings.emit()
@@ -59,7 +62,7 @@ class AdvancedSettings(QtWidgets.QWidget, Ui_Form):
         self.balance_wait.valueChanged.connect(self.update_balance_time)
         self.initial_press.valueChanged.connect(self.update_min_pressure)
         self.final_press.valueChanged.connect(self.update_max_pressure)
-        self.password.textChanged.connect(self.update_password)
+        self.update_pass.clicked.connect(self.update_password)
 
         self.init_btn.clicked.connect(self.initializer_update)
 
@@ -74,8 +77,7 @@ class AdvancedSettings(QtWidgets.QWidget, Ui_Form):
     def update_max_pressure(self):
         UserSettings.user_settings.set_max_pressure(int(self.final_press.value()))
     def update_password(self):
-        UserSettings.user_settings.set_password(int(self.password.toPlainText()))
-        print(UserSettings.user_settings.password)
+        self.update_passwd.emit()
 
     def initializer_update(self):
         UserSettings.user_settings.initialize = True

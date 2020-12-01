@@ -142,7 +142,7 @@ class Ui_Form(object):
         self.widget.setStyleSheet("color: rgb(220, 220, 220);")
         self.widget.setObjectName("widget")
         self.left_tank = QtWidgets.QProgressBar(self.widget)
-        self.left_tank.setGeometry(QtCore.QRect(96, 140, 91, 201))
+        self.left_tank.setGeometry(QtCore.QRect(106, 152, 77, 189))
         self.left_tank.setProperty("value", 24)
         self.left_tank.setTextVisible(False)
         self.left_tank.setOrientation(QtCore.Qt.Vertical)
@@ -154,7 +154,7 @@ class Ui_Form(object):
         self.v3.setScaledContents(True)
         self.v3.setObjectName("v3")
         self.right_tank = QtWidgets.QProgressBar(self.widget)
-        self.right_tank.setGeometry(QtCore.QRect(276, 140, 91, 201))
+        self.right_tank.setGeometry(QtCore.QRect(286, 152, 77, 185))
         self.right_tank.setProperty("value", 24)
         self.right_tank.setTextVisible(False)
         self.right_tank.setOrientation(QtCore.Qt.Vertical)
@@ -179,7 +179,7 @@ class Ui_Form(object):
         font.setBold(True)
         font.setWeight(75)
         self.left_press.setFont(font)
-        self.left_press.setStyleSheet("color: rgb(0, 0, 0);\n"
+        self.left_press.setStyleSheet("color: rgb(255, 255, 255);\n"
 "background-color: none;")
         self.left_press.setObjectName("left_press")
         self.oxy_press = QtWidgets.QLabel(self.widget)
@@ -189,7 +189,7 @@ class Ui_Form(object):
         font.setBold(True)
         font.setWeight(75)
         self.oxy_press.setFont(font)
-        self.oxy_press.setStyleSheet("color: rgb(0, 0, 0);\n"
+        self.oxy_press.setStyleSheet("color: rgb(255, 255, 255);\n"
 "background-color: none;")
         self.oxy_press.setObjectName("oxy_press")
         self.airtank_press = QtWidgets.QLabel(self.widget)
@@ -199,7 +199,7 @@ class Ui_Form(object):
         font.setBold(True)
         font.setWeight(75)
         self.airtank_press.setFont(font)
-        self.airtank_press.setStyleSheet("color: rgb(0, 0, 0);\n"
+        self.airtank_press.setStyleSheet("color: rgb(255, 255, 255);\n"
 "background-color: none;")
         self.airtank_press.setObjectName("airtank_press")
         self.inlet_press = QtWidgets.QLabel(self.widget)
@@ -209,7 +209,7 @@ class Ui_Form(object):
         font.setBold(True)
         font.setWeight(75)
         self.inlet_press.setFont(font)
-        self.inlet_press.setStyleSheet("color: rgb(0, 0, 0);\n"
+        self.inlet_press.setStyleSheet("color: rgb(255, 255, 255);\n"
 "background-color: none;")
         self.inlet_press.setObjectName("inlet_press")
         self.oxy_purity = QtWidgets.QLabel(self.widget)
@@ -219,7 +219,7 @@ class Ui_Form(object):
         font.setBold(True)
         font.setWeight(75)
         self.oxy_purity.setFont(font)
-        self.oxy_purity.setStyleSheet("color: rgb(0, 0, 0);\n"
+        self.oxy_purity.setStyleSheet("color: rgb(255, 255, 255);\n"
 "background-color: none;")
         self.oxy_purity.setObjectName("oxy_purity")
         self.right_press = QtWidgets.QLabel(self.widget)
@@ -229,7 +229,7 @@ class Ui_Form(object):
         font.setBold(True)
         font.setWeight(75)
         self.right_press.setFont(font)
-        self.right_press.setStyleSheet("color: rgb(0, 0, 0);\n"
+        self.right_press.setStyleSheet("color: rgb(255, 255, 255);\n"
 "background-color: none;")
         self.right_press.setObjectName("right_press")
         self.rightin_valve = QtWidgets.QLabel(self.widget)

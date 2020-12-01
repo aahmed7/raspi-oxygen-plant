@@ -4,29 +4,33 @@ from Settings import UserSettings
 import sys
 from PyQt5 import QtCore,QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
-from GUI_pi import Login
+# from GUI_pi import Login
 from GUI_pi import mainwindow
 from GUI_pi import basicsettings
 from GUI_pi import AdvancedSettings
 from GUI_pi import OutputTest
 from GUI_pi import calibration
 from GUI_pi import startstop
+from GUI_pi import LoginKeypad
+from GUI_pi import setpasswdkeypad
 from PyQt5.QtCore import QThread, pyqtSignal
 from PyQt5.QtCore import *
 from SensorsActuators import Sensors
 from SensorsActuators import Actuators
+from datetime import datetime
 import Tanks
 import os,time
 
 class Controller:
     def __init__(self):
-        self.login = Login.Login()
+        self.login = LoginKeypad.Keypad()
         self.main = mainwindow.MainWindow()
         self.basic_settings = basicsettings.BasicSettings()
         self.adv_settings = AdvancedSettings.AdvancedSettings()
         self.output_test_settings = OutputTest.OutputSettings()
         self.calibration_settings = calibration.Calibration()
         self.startstop = startstop.StartStop()
+        self.updatepass = setpasswdkeypad.SetPasswd()
         self.sensorupdatethread = MainSensorThread()
         self.sensorupdatethread._signal.connect(self.update_sensor_gauges)
         self.sensorupdatethread.start()
@@ -64,15 +68,23 @@ class Controller:
         self.basic_settings.showFullScreen()
 
     def show_login(self):
-        self.login.switch_window.connect(self.show_advanced_settings)
+        self.login.unlock_settings.connect(self.show_advanced_settings)
         self.login.show()
     
     def show_advanced_settings(self):
         self.adv_settings.switch_basic_settings.connect(self.show_basic_settings)
         self.adv_settings.switch_output_settings.connect(self.show_output_test_settings)
         self.adv_settings.switch_calibration_settings.connect(self.show_calibration_settings)
+        self.adv_settings.update_passwd.connect(self.show_passwdupdate_keypad)
         self.hide_windows()
         self.adv_settings.showFullScreen()
+
+    def show_passwdupdate_keypad(self):
+        self.updatepass.updated.connect(self.updatePasswd)
+        self.updatepass.show()
+
+    def updatePasswd(self):
+        self.adv_settings.password.setPlainText(str(UserSettings.user_settings.password))
 
     def show_output_test_settings(self):
         self.output_test_settings.switch_adv_settings.connect(self.show_advanced_settings)
@@ -101,9 +113,12 @@ class Controller:
         self.main.left_tank.setValue(Sensors.sensors.read_pressure("press3"))
         self.main.right_tank.setMaximum(20/Sensors.sensors.PRESSURE_SCALER4)
         self.main.right_tank.setValue(Sensors.sensors.read_pressure("press4"))
+        now = datetime.now()
+        self.basic_settings.date.setText(now.strftime("%d/%m/%Y"))
+        self.basic_settings.time.setText(now.strftime("%H:%M:%S"))
 
     def start_process_handler(self):
-        UserSettings.user_settings.last_purity= Sensors.sensors.read_oxygen_sensor()
+        UserSettings.user_settings.last_purity=Sensors.sensors.read_oxygen_sensor()
         msg = QMessageBox()
         Actuators.valve.valve_close_all()
         self.main.status_text.setText("Starting")
@@ -410,4 +425,7 @@ def main():
     sys.exit(app.exec_())
 
 if __name__ == '__main__':
-    main(),
+    try:
+        main()
+    except:
+        main()

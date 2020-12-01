@@ -1,4 +1,4 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtWidgets
 from GUI_pi.skeleton.MainwindowSkeleton import Ui_Form
 
 class MainWindow(QtWidgets.QWidget, Ui_Form):
